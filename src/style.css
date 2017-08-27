@@ -1,7 +1,6 @@
-$primary: #006699;
 
 h2 {
-	color: $primary;
+	color: #006699;
 }
 a{
 	font-size:20px;
@@ -22,10 +21,18 @@ a{
 	text-align: center;padding-bottom: 70px;
 }
 .div-form{
-	padding-right: 200px; padding-left:200px;
+	padding-right: 200px;
+	padding-left:200px;
+
 }
 .div-form-right{
 	padding-right: 200px;
+}
+
+.loginform{
+	padding-right: 35%;
+	padding-left:35%;
+	margin-top:15%;
 }
 .activity_description{
 	padding-bottom: 20px;
