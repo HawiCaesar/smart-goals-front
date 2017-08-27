@@ -1,11 +1,21 @@
 import React, { Component } from "react";
 
-class LoginButton extends Component{
+class AuthComponent extends Component{
 
     render(){
          console.log("*********");
          console.log("auth details", this.props.auth_details.user_logged_in);
          console.log("*********");
+
+        let login_results = ""
+
+        if(this.props.auth_details.login_error === true){
+            login_results = <p className="alert alert-danger">{this.props.auth_details.error}</p>
+        }
+
+        if(this.props.auth_details.user_logged_in === true){
+            login_results = <p className="alert alert-success">{this.props.auth_details.results.message}</p>
+        }
 
         return (
 
@@ -19,7 +29,6 @@ class LoginButton extends Component{
 
                 </div>
 
-
                 <div className="form-group required"><label className="control-label" htmlFor="password">Password</label>
 
                     <input className="form-control" id="password" name="password" required type="password" value="" />
@@ -28,11 +37,11 @@ class LoginButton extends Component{
 
                 <button className="btn btn-primary" onClick={this.props.loginUser}>Login</button>
 
-                <p>{JSON.stringify(this.props.auth_details.results.message)}</p>
+                <div>{login_results}</div>
 
             </div>
         );
     }
 }
 
-export default LoginButton;
+export default AuthComponent;
