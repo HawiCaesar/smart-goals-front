@@ -9,8 +9,8 @@ export function loginUser(){
             headers: {"Access-Control-Allow-Origin": "*"}
         };
 
-        axios.post("https://demo-smart-goals-api.herokuapp.com/v1/api/auth/login",
-            {"email": "abc@example.com", "password": "123456"}, config)
+        axios.post("http://localhost:5000/v1/api/auth/login",
+            {"email": "", "password": ""}, config)
             .then((response) => {
                 dispatch({type: "LOGIN_RESULTS", payload: response.data})
 
