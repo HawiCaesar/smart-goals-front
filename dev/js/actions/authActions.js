@@ -1,16 +1,13 @@
 import axios from "axios"
+import * as utils from "../utils/tokenUtilities"
 
-export function loginUser(){
+export function loginUser(userData){
 
     return function(dispatch){
         dispatch({type: "TRY_LOGIN"});
 
-        let config = {
-            headers: {"Access-Control-Allow-Origin": "*"}
-        };
-
-        axios.post("http://localhost:5000/v1/api/auth/login",
-            {"email": "", "password": ""}, config)
+        axios.post("https://demo-smart-goals-api.herokuapp.com/v1/api/auth/login",
+            userData)
             .then((response) => {
                 dispatch({type: "LOGIN_RESULTS", payload: response.data})
 
@@ -19,4 +16,21 @@ export function loginUser(){
                 dispatch({type: "LOGIN_REJECTED", payload: err})
             })
     }
+}
+
+export function emailChanged(email){
+
+    return function(dispatch) {
+        dispatch({type: "EMAIL_CHANGED", payload: email})
+    }
+}
+
+export function logoutUser(){
+
+    return function(dispatch){
+
+        dispatch({type: "LOGOUT"});
+        utils.removeAuthToken();
+    }
+
 }

@@ -2,46 +2,65 @@ import React, { Component } from "react";
 
 class AuthComponent extends Component{
 
+
     render(){
-         console.log("*********");
-         console.log("auth details", this.props.auth_details.user_logged_in);
-         console.log("*********");
 
         let login_results = ""
+
+        //console.log(this.props.auth_details)
 
         if(this.props.auth_details.login_error === true){
             login_results = <p className="alert alert-danger">{this.props.auth_details.error}</p>
         }
 
         if(this.props.auth_details.user_logged_in === true){
-            login_results = <p className="alert alert-success">{this.props.auth_details.results.message}</p>
+            //login_results = <p className="alert alert-success">{this.props.auth_details.results.message}</p>
         }
 
         return (
 
             <div className="loginform">
 
-                <h1 className="text-center">Smart Goals</h1>
+                    <h1 className="text-center">Smart Goals</h1>
 
-                <div className="form-group required"><label className="control-label" htmlFor="email">Email</label>
+                    <div>
+                        {login_results}
+                    </div>
 
-                    <input className="form-control" id="email" name="email" required type="text" value="" />
+                    <div className="form-group required">
+                        <label className="control-label" htmlFor="email">Email</label>
 
-                </div>
+                        <input className="form-control" id="email" name="email" required type="text"
+                               value={this.props.email}
+                        onChange={this.props.onChange}/>
 
-                <div className="form-group required"><label className="control-label" htmlFor="password">Password</label>
+                    </div>
 
-                    <input className="form-control" id="password" name="password" required type="password" value="" />
+                    <div className="form-group required"><label className="control-label" htmlFor="password">Password</label>
 
-                </div>
+                        <input className="form-control" id="password" name="password" required type="password"
+                               value={this.props.password}
+                               onChange={this.props.onChange}
+                        />
 
-                <button className="btn btn-primary" onClick={this.props.loginUser}>Login</button>
+                    </div>
 
-                <div>{login_results}</div>
+                    <button className="btn btn-primary" onClick={this.props.onClick}>Login</button>
+
+
+
 
             </div>
         );
     }
+}
+
+AuthComponent.propTypes = {
+    onChange: React.PropTypes.func.isRequired,
+    onClick: React.PropTypes.func.isRequired,
+    email: React.PropTypes.string.isRequired,
+    password: React.PropTypes.string.isRequired,
+    auth_details: React.PropTypes.object.isRequired
 }
 
 export default AuthComponent;
