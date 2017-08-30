@@ -1,11 +1,20 @@
-import authenticate from "./initialState"
+//import authenticate from "./initialState"
+import * as utils from "../utils/tokenUtilities"
 
-export default function (state=authenticate, action) {
+export default function (state={
+    user_logged_in: false,
+    login_error: false,
+    error: null,
+    logging_in: false,
+    results: [],
+    token: "",
+    email: ""
+}, action) {
 
     switch (action.type) {
         case "TRY_LOGIN": {
 
-            return Object.assign(state,{
+            return Object.assign({}, state,{
                    logging_in: true,
                     login_error: false,
                     error: false,
@@ -17,7 +26,9 @@ export default function (state=authenticate, action) {
         }
         case "LOGIN_RESULTS": {
 
-            return Object.assign(state, {
+            utils.setAuthToken(action.payload['access_token']);
+
+            return Object.assign({}, state, {
                         login_error: true,
                         error: false,
                         user_logged_in: true,
@@ -28,7 +39,7 @@ export default function (state=authenticate, action) {
 
         }
         case "LOGIN_REJECTED": {
-            return Object.assign(state, {
+            return Object.assign({}, state, {
                         user_logged_in: false,
                         login_error: true,
                         error: action.payload.response.data.message,
@@ -37,6 +48,22 @@ export default function (state=authenticate, action) {
                         token: ""
                     })
 
+        }
+        case "LOGOUT":{
+            return Object.assign({}, state, {
+                user_logged_in: false,
+                login_error: false,
+                error: false,
+                logging_in: false,
+                results: [],
+                token: ""
+            })
+        }
+
+        case "EMAIL_CHANGED":{
+            return Object.assign({}, state, {
+                email: action.payload
+            })
         }
 
     }
