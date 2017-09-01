@@ -1,4 +1,3 @@
-//import authenticate from "./initialState"
 import * as utils from "../utils/tokenUtilities"
 
 export default function (state={

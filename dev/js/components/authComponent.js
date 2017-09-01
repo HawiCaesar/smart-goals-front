@@ -7,14 +7,8 @@ class AuthComponent extends Component{
 
         let login_results = ""
 
-        //console.log(this.props.auth_details)
-
         if(this.props.auth_details.login_error === true){
             login_results = <p className="alert alert-danger">{this.props.auth_details.error}</p>
-        }
-
-        if(this.props.auth_details.user_logged_in === true){
-            //login_results = <p className="alert alert-success">{this.props.auth_details.results.message}</p>
         }
 
         return (
@@ -25,6 +19,7 @@ class AuthComponent extends Component{
 
                     <div>
                         {login_results}
+                        {(!this.props.form_errors)?'':<p className="alert alert-danger">{this.props.form_errors}</p>}
                     </div>
 
                     <div className="form-group required">
@@ -47,9 +42,6 @@ class AuthComponent extends Component{
 
                     <button className="btn btn-primary" onClick={this.props.onClick}>Login</button>
 
-
-
-
             </div>
         );
     }
@@ -60,6 +52,7 @@ AuthComponent.propTypes = {
     onClick: React.PropTypes.func.isRequired,
     email: React.PropTypes.string.isRequired,
     password: React.PropTypes.string.isRequired,
+    form_errors: React.PropTypes.string.isRequired,
     auth_details: React.PropTypes.object.isRequired
 }
 

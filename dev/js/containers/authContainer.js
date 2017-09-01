@@ -10,11 +10,13 @@ import Home from "./home"
  class AuthContainer extends React.Component{
 
     constructor(props){
-        super(props)
+        super(props);
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            form_errors: ''
+
         }
 
     }
@@ -23,9 +25,26 @@ import Home from "./home"
         this.setState({[event.target.name]: event.target.value})
     }
 
+     validateEmail(email) {
+         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+         return re.test(email);
+     }
+
+    // Login
     onClick(){
-        console.log(this.state)
-        this.props.loginUser(this.state)
+
+        if(this.validateEmail(this.state.email)){
+
+            if (this.state.email.length < 1 || this.state.password.length < 0) {
+                this.setState({form_errors: "Email and password fields are required."})
+            } else {
+                this.props.loginUser(this.state);
+            }
+        }else{
+            this.setState({form_errors: "Please enter an appropriate Email Address"})
+        }
+
+
     }
 
     render(){
@@ -39,9 +58,11 @@ import Home from "./home"
                                auth_details={ this.props.auth0 }
                                results = { this.props.results }
                                email={ this.state.email }
+                               form_errors={ this.state.form_errors }
                                password={ this.state.password }
                                onChange={ this.onChange.bind(this) }
                                onClick={ this.onClick.bind(this) }
+
                 />
             }
             </div>
