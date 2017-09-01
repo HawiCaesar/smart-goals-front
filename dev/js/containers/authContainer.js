@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 import * as utils from "../utils/tokenUtilities"
+import validateEmail from "../utils/emailValidation"
 import { loginUser } from "../actions/authActions";
 import  AuthComponent  from "../components/authComponent"
 import Home from "./home"
@@ -25,15 +26,10 @@ import Home from "./home"
         this.setState({[event.target.name]: event.target.value})
     }
 
-     validateEmail(email) {
-         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-         return re.test(email);
-     }
-
     // Login
     onClick(){
 
-        if(this.validateEmail(this.state.email)){
+        if(validateEmail(this.state.email)){
 
             if (this.state.email.length < 1 || this.state.password.length < 0) {
                 this.setState({form_errors: "Email and password fields are required."})
