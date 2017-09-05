@@ -19,7 +19,7 @@ const Header = (props) => (
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                     <ul className="nav navbar-nav navbar-right">
-                        <li><a>rere</a></li>
+                        <li><a href="#">Add Bucketlist</a></li>
                         <li><a onClick={props.logoutUser}>Logout</a></li>
                     </ul>
                 </div>

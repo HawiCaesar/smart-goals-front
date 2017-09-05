@@ -6,7 +6,7 @@ export function loginUser(userData){
     return function(dispatch){
         dispatch({type: "TRY_LOGIN"});
 
-        axios.post("https://demo-smart-goals-api.herokuapp.com/v1/api/auth/login",
+        axios.post(process.env.API_LOCAL_URL+"/v1/api/auth/login",
             userData)
             .then((response) => {
                 dispatch({type: "LOGIN_RESULTS", payload: response.data})

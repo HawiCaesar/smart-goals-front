@@ -29,7 +29,7 @@ a{
 	padding-right: 200px;
 }
 
-.loginform{
+.loginform, .intro{
 	padding-right: 35%;
 	padding-left:35%;
 	margin-top:15%;
@@ -39,4 +39,24 @@ a{
 }
 .table-navs{
 	padding-bottom: 20px;
+}
+.top-buffer { margin-top:20px; }
+.bucketlists{
+	padding-right: 10%;
+	padding-left:10%;
+}
+.add-bucketlist{
+	padding: 20px;
+}
+.button-spacing{
+	padding-right:15px;
+}
+.list-group-item{
+	padding: 15px 15px
+}
+.update-bucketlist-form{
+	padding-bottom: 20px;
+}
+.spacer{
+	padding-bottom: 15px;
 }

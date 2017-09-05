@@ -4,11 +4,14 @@ var webpack = require('webpack');
 module.exports = {
     devServer: {
         inline: true,
-        contentBase: './src',
-        port: 3000
+        contentBase: './public',
+        port: 3000,
+        historyApiFallback:{
+            index:'index.html'
+        }
     },
     devtool: 'cheap-module-eval-source-map',
-    entry: './dev/js/index.js',
+    entry: './js/index.js',
     module: {
         loaders: [
             {
@@ -23,10 +26,14 @@ module.exports = {
         ]
     },
     output: {
-        path: 'src',
-        filename: 'js/bundle.min.js'
+        path: 'public',
+        filename: 'bundle.min.js'
     },
     plugins: [
-        new webpack.optimize.OccurrenceOrderPlugin()
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.API_LOCAL_URL': JSON.stringify(process.env.API_LOCAL_URL),
+            'process.env.API_PROD_URL': JSON.stringify(process.env.API_PROD_URL)
+        }),
     ]
 };
