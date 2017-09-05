@@ -25,22 +25,19 @@ import Home from "./home"
     onChange(event){
         this.setState({[event.target.name]: event.target.value})
     }
-
     // Login
     onClick(){
 
         if(validateEmail(this.state.email)){
 
-            if (this.state.email.length < 1 || this.state.password.length < 0) {
-                this.setState({form_errors: "Email and password fields are required."})
+            if (this.state.password.length < 1) {
+                this.setState({form_errors: "Password field is Required."})
             } else {
                 this.props.loginUser(this.state);
             }
         }else{
-            this.setState({form_errors: "Please enter an appropriate Email Address"})
+            this.setState({form_errors: "Please Enter An Appropriate Email Address"})
         }
-
-
     }
 
     render(){

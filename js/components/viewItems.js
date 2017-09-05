@@ -2,11 +2,6 @@ import React from "react";
 
 class ViewItems extends React.Component {
 
-
-    // componentWillMount(){
-    //     console.log(this.getBucketbyId(this.props.buckets.results, this.props.id))
-    // }
-
     getBucketbyId(buckets, id) {
         return Object.assign({}, buckets.find(bucket => bucket.id == id));
 
