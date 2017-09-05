@@ -1,9 +1,9 @@
 import React from "react";
 import LoadingBar from 'react-redux-loading-bar'
 
-import CommonModal from "./commonModal"
+import CommonModal from "../commonModal"
 import NoBucketlists from "./noBucketlists"
-import ViewItems from "./viewItems"
+import ViewItems from "../viewItems"
 import UpdateBucketlist from "./updateBucketlist"
 
 class Bucketlists extends React.Component {

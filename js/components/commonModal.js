@@ -20,10 +20,10 @@ class CommonModal extends React.Component {
 
         // The modal "window"
         const modalStyle = {
-            backgroundColor: '#fff',
+            backgroundColor: '#303030',
             borderRadius: 5,
-            max_width: 700,
-            max_height: 'auto',
+            width: 700,
+            height: 'auto',
             margin: '0 auto',
             padding: 30
         };
