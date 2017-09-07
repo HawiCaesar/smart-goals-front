@@ -1,13 +1,15 @@
 import axios from "axios"
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import * as utils from "../utils/tokenUtilities"
+import BucketlistService from "../services/bucketlistsService"
 
-export function get_bucketlists(token){
+export function get_bucketlists(){
 
+    let token = utils.getAuthToken()
     let headers = { "Authorization": "Bearer "+ token +"", "Content-Type": "application/json" }
 
     const service = axios.create({
-        baseURL: 'http://localhost:5000/',
+        baseURL: process.env.API_LOCAL_URL,
 
     });
 
@@ -37,7 +39,7 @@ export function update_bucketlist(bucket_id, data){
     let headers = { "Authorization": "Bearer "+ token +"", "Content-Type": "application/json" }
 
     const service = axios.create({
-        baseURL: 'http://localhost:5000/',
+        baseURL: process.env.API_LOCAL_URL,
 
     });
 
@@ -62,30 +64,46 @@ export function update_bucketlist(bucket_id, data){
 }
 export function delete_bucketlist(bucket_id){
 
+    return function(dispatch) {
+        BucketlistService.delete_service(`/v1/api/bucketlists/${bucket_id}`, (status, data) =>
+            dispatch({type: "DELETING BUCKETLIST", payload: data, bucket_id: bucket_id})).catch((error) => {
+
+            dispatch({type: "DELETE FAILED", payload: error })
+        });
+    }
+}
+
+export function add_bucketlist(data){
+
     let token = utils.getAuthToken()
     let headers = { "Authorization": "Bearer "+ token +"", "Content-Type": "application/json" }
 
     const service = axios.create({
-        baseURL: 'http://localhost:5000/',
+        baseURL: process.env.API_LOCAL_URL,
 
     });
 
     return function(dispatch) {
-        dispatch({type: "DELETING_BUCKETLIST"});
 
         return service.request({
-            method: 'DELETE',
-            url:'v1/api/bucketlists/'+bucket_id,
+            method: 'POST',
+            url:'v1/api/bucketlists/',
             headers: headers,
             data: {"name": data }
         }).then(function(response) {
 
-            dispatch({ type: "DELETE_RESULT", payload: response.data, bucket_id: parseInt(bucket_id)})
+            dispatch({ type: "BUCKETLIST_CREATION", payload: response.data})
 
         }).catch((err) => {
 
-            dispatch({type: "DELETE_FAILED", payload: err})
+            dispatch({type: "CREATION_FAILED", payload: err})
         })
 
+    }
+}
+
+export function dismiss_modal_message_add(){
+    return function(dispatch){
+        dispatch({ type: "REMOVE_MODAL_MESSAGES_ADD"})
     }
 }
