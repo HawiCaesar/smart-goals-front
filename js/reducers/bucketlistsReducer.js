@@ -1,8 +1,13 @@
 export default function(state={
     fetching: false,
     bucketlists: [],
+    bucketlists_count: 0,
+    add_bucket_status: false,
+    add_bucket_message: "",
     edit: false,
-    edit_response: null
+    edit_response: null,
+    delete_bucket_status: false,
+    delete_bucket_message: null
 }, action) {
 
     switch (action.type) {
@@ -16,7 +21,8 @@ export default function(state={
 
             return Object.assign({}, state,{
                 fetching: false,
-                bucketlists: action.payload
+                bucketlists: action.payload,
+                bucketlists_count: action.payload.count
             });
         }
         case "FAILED_FETCHING_BUCKETLISTS":{
@@ -49,6 +55,48 @@ export default function(state={
                 edit_response: action.payload.response
             });
         }
+
+        case "DELETING BUCKETLIST":{
+
+            delete state.bucketlists.results.find(bucket => bucket.id === action.bucket_id)
+
+            return Object.assign({}, state, {
+                delete_bucket_status: true,
+                bucketlists_count: state.bucketlists_count - 1
+            })
+
+        }
+        case "DELETE FAILED":{
+
+            return Object.assign({}, state, {
+                delete_bucket_status: false,
+                delete_bucket_message: action.payload
+            })
+        }
+        case "BUCKETLIST_CREATION":{
+
+            return Object.assign({}, state, {
+                add_bucket_status: true,
+                add_bucket_message: action.payload,
+                bucketlists_count: state.bucketlists_count + 1
+            })
+        }
+
+        case "CREATION_FAILED":{
+
+            return Object.assign({}, state, {
+                add_bucket_status: false,
+                add_bucket_message: action.payload.response.data
+            })
+        }
+        case "REMOVE_MODAL_MESSAGES_ADD":{
+
+            return Object.assign({}, state, {
+                add_bucket_status: false,
+                add_bucket_message: ""
+            })
+        }
+
     }
 
     return state;
