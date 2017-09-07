@@ -1,26 +1,40 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from "redux";
+import {connect} from 'react-redux';
+import {bindActionCreators} from "redux";
+import {withRouter} from "react-router-dom";
 
-import { get_bucketlists, update_bucketlist } from "../actions/bucketlistsActions";
+import {
+    get_bucketlists,
+    update_bucketlist,
+    delete_bucketlist,
+    add_bucketlist,
+    dismiss_modal_message_add
+} from "../actions/bucketlistsActions";
 import Bucketlists from "../components/bucketlists/bucketlists"
-import * as utils from "../utils/tokenUtilities"
 
 
-class BucketlistsContainer extends React.Component{
+class BucketlistsContainer extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state = { isOpen: false, isOpen_update: false, bucket: 0, bucket_details:{}};
+        this.state = {
+            isOpen: false,
+            isOpen_update: false,
+            isOpen_add: false,
+            bucket: 0,
+            add_bucket_details: {},
+            update_bucket_details: {},
+            showingAlert: false
+        };
     }
 
 
     componentWillMount() {
 
-        this.props.get_bucketlists(utils.getAuthToken())
+        this.props.get_bucketlists()
     }
 
-    viewItemsModal(event){
+    viewItemsModal(event) {
         let bucketlist_id = event.currentTarget.getAttribute('data-id');
         this.setState({
             isOpen: !this.state.isOpen,
@@ -28,7 +42,31 @@ class BucketlistsContainer extends React.Component{
         });
     }
 
-    updateBucketlistModal(event){
+    addBucketlistModal() {
+        this.setState({
+            isOpen_add: !this.state.isOpen_add
+        })
+
+        this.props.dismiss_modal_message_add()
+    }
+
+    onAddBucketlistName(event) {
+        this.setState({add_bucket_details: event.target.value})
+    }
+
+    onCreateBucketlist() {
+        this.props.add_bucketlist(this.state.add_bucket_details)
+
+        setTimeout(function () {
+
+            this.setState({isOpen_add: false});
+            //this.componentWillMount()
+
+        }.bind(this), 1000);
+
+    }
+
+    updateBucketlistModal(event) {
 
         let bucketlist_id = event.currentTarget.getAttribute('data-id');
 
@@ -37,37 +75,46 @@ class BucketlistsContainer extends React.Component{
             bucket: bucketlist_id
         });
     }
-    onUpdateBucketlist(bucket_id){
 
-        this.props.update_bucketlist(bucket_id, this.state.bucket_details)
+    onUpdateBucketlist(bucket_id) {
+
+        this.props.update_bucketlist(bucket_id, this.state.update_bucket_details)
         this.setState({
             isOpen_update: !this.state.isOpen_update
         })
 
     }
-    onChangeBucketlistName(event){
-        this.setState({bucket_details: event.target.value})
-        console.log(this.state.bucket_details)
+
+    onChangeBucketlistName(event) {
+        this.setState({update_bucket_details: event.target.value})
     }
 
-    deleteBucketlistModal(event){
+    deleteBucketlistModal(event) {
 
         let bucketlist_id = event.currentTarget.getAttribute('data-id');
 
-        // make delete action and reducer to update store and force refresh
+        this.props.delete_bucketlist(bucketlist_id)
+
+        this.componentWillMount()
+
     }
 
     render() {
         return (
-            <Bucketlists bucketlists={ this.props.bucketlists_details }
-                         modal_state={ this.state.isOpen }
-                         update_modal_state={ this.state.isOpen_update }
-                         bucketlist_id = { this.state.bucket }
-                         viewItemsModal={ this.viewItemsModal.bind(this) }
-                         updateBucketlistModal={ this.updateBucketlistModal.bind(this) }
-                         deleteBucketlistModal={ this.deleteBucketlistModal.bind(this) }
-                         onUpdateBucketlist = { this.onUpdateBucketlist.bind(this)}
-                         onChangeBucketlistName = { this.onChangeBucketlistName.bind(this) }
+            <Bucketlists bucketlists={this.props.bucketlists_details}
+                         modal_state={this.state.isOpen}
+                         update_modal_state={this.state.isOpen_update}
+                         add_modal_state={this.state.isOpen_add}
+                         bucketlist_id={this.state.bucket}
+                         viewItemsModal={this.viewItemsModal.bind(this)}
+                         addBucketlistModal={this.addBucketlistModal.bind(this)}
+                         updateBucketlistModal={this.updateBucketlistModal.bind(this)}
+                         deleteBucketlistModal={this.deleteBucketlistModal.bind(this)}
+                         onUpdateBucketlist={this.onUpdateBucketlist.bind(this)}
+                         onChangeBucketlistName={this.onChangeBucketlistName.bind(this)}
+                         onAddBucketlistName={this.onAddBucketlistName.bind(this)}
+                         onCreateBucketlist={this.onCreateBucketlist.bind(this)}
+
             />
         );
     }
@@ -76,14 +123,24 @@ class BucketlistsContainer extends React.Component{
 
 function mapStateToProps(state) {
     return {
-        bucketlists_details: state.bucketlists,
+        bucketlists_details: state.bucketlists
 
     }
 }
-function mapDispatchToProps(dispatch){
-    return bindActionCreators({get_bucketlists: get_bucketlists, update_bucketlist: update_bucketlist}, dispatch)
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+        {
+            get_bucketlists: get_bucketlists,
+            add_bucketlist: add_bucketlist,
+            update_bucketlist: update_bucketlist,
+            delete_bucketlist: delete_bucketlist,
+            dismiss_modal_message_add: dismiss_modal_message_add
+        }, dispatch)
 
 }
+
+withRouter(BucketlistsContainer)
 
 export default connect(mapStateToProps, mapDispatchToProps)(BucketlistsContainer)
 
