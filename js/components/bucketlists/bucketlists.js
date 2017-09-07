@@ -5,6 +5,7 @@ import CommonModal from "../commonModal"
 import NoBucketlists from "./noBucketlists"
 import ViewItems from "../viewItems"
 import UpdateBucketlist from "./updateBucketlist"
+import AddBucketlist from "./addBucketlist"
 
 class Bucketlists extends React.Component {
 
@@ -47,24 +48,44 @@ class Bucketlists extends React.Component {
 
         return(
             <div className="bucketlists">
-                <h3>My bucketlists</h3>
+                <div className="row first-row">
+                    <a href="#" className="btn btn-primary btn-md"
+                    onClick={this.props.addBucketlistModal}>Add Bucketlist</a>
+                    <h3>My Bucketlists (Total: {this.props.bucketlists.bucketlists_count})</h3>
+                </div>
                 <div className="row">
 
                         {(!this.props.bucketlists.bucketlists.results)? <LoadingBar/>: this.show_bucketlist()}
                 </div>
+
+
                 <CommonModal show={this.props.modal_state}
                        style={{width:'300px', height:'300px'}}
                        onClose={this.props.viewItemsModal}>
+
                     <ViewItems id={this.props.bucketlist_id} buckets={this.props.bucketlists.bucketlists}/>
+
                 </CommonModal>
 
                 <CommonModal show={this.props.update_modal_state}
                              style={{width:'300px', height:'300px'}}
                              onClose={this.props.updateBucketlistModal}>
+
                     <UpdateBucketlist id={this.props.bucketlist_id}
                                       buckets={this.props.bucketlists.bucketlists}
                                       onChangeBucketlistName = { this.props.onChangeBucketlistName }
                                       onUpdateBucketlist = { this.props.onUpdateBucketlist } />
+                </CommonModal>
+
+                <CommonModal show={this.props.add_modal_state}
+                             style={{width:'300px', height:'300px'}}
+                             onClose={this.props.addBucketlistModal}>
+
+                    <AddBucketlist
+                                      onAddBucketlistName = { this.props.onAddBucketlistName }
+                                      onCreateBucketlist = { this.props.onCreateBucketlist }
+                                      messages = { this.props.bucketlists.add_bucket_message}
+                    />
                 </CommonModal>
             </div>
         )
@@ -76,6 +97,7 @@ Bucketlists.propTypes = {
 
     bucketlists: React.PropTypes.object.isRequired,
     modal_state: React.PropTypes.bool.isRequired,
-    update_modal_state: React.PropTypes.bool.isRequired
+    update_modal_state: React.PropTypes.bool.isRequired,
+    add_modal_state: React.PropTypes.bool.isRequired
 }
 export default Bucketlists
