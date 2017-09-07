@@ -1,6 +1,6 @@
 import * as utils from "../utils/tokenUtilities"
 
-export default function (state={
+export default function (state = {
     user_logged_in: false,
     login_error: false,
     error: null,
@@ -13,13 +13,13 @@ export default function (state={
     switch (action.type) {
         case "TRY_LOGIN": {
 
-            return Object.assign({}, state,{
-                   logging_in: true,
-                    login_error: false,
-                    error: false,
-                    user_logged_in: false,
-                    results: [],
-                    token: ""
+            return Object.assign({}, state, {
+                logging_in: true,
+                login_error: false,
+                error: false,
+                user_logged_in: false,
+                results: [],
+                token: ""
             });
 
         }
@@ -28,27 +28,27 @@ export default function (state={
             utils.setAuthToken(action.payload['access_token']);
 
             return Object.assign({}, state, {
-                        login_error: true,
-                        error: false,
-                        user_logged_in: true,
-                        logging_in: false,
-                        results: action.payload,
-                        token: action.payload['access_token']
-                    })
+                login_error: true,
+                error: false,
+                user_logged_in: true,
+                logging_in: false,
+                results: action.payload,
+                token: action.payload['access_token']
+            })
 
         }
         case "LOGIN_REJECTED": {
             return Object.assign({}, state, {
-                        user_logged_in: false,
-                        login_error: true,
-                        error: action.payload.response.data.message,
-                        logging_in: false,
-                        results: [],
-                        token: ""
-                    })
+                user_logged_in: false,
+                login_error: true,
+                error: action.payload.response.data.message,
+                logging_in: false,
+                results: [],
+                token: ""
+            })
 
         }
-        case "LOGOUT":{
+        case "LOGOUT": {
             return Object.assign({}, state, {
                 user_logged_in: false,
                 login_error: false,
@@ -59,7 +59,7 @@ export default function (state={
             })
         }
 
-        case "EMAIL_CHANGED":{
+        case "EMAIL_CHANGED": {
             return Object.assign({}, state, {
                 email: action.payload
             })
@@ -67,6 +67,5 @@ export default function (state={
 
     }
     return state;
-
 
 }
