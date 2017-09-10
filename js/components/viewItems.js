@@ -7,35 +7,47 @@ class ViewItems extends React.Component {
 
     }
 
-    show_items(){
+    show_bucket_name() {
+        const single_bucket = this.getBucketbyId(this.props.buckets.results, this.props.id)
+
+        return <h3>{single_bucket.name}</h3>
+    }
+
+    show_items() {
 
         const items_view = this.getBucketbyId(this.props.buckets.results, this.props.id)
 
-        if(items_view.items.length === 0){
-            return <p className="alert alert-info"> You Have not items in this Bucketlist</p>
-        }else{
+        if (items_view.items.length === 0) {
+            return <p className="alert alert-info"> You Have No items in this Bucketlist</p>
+        } else {
+
 
             return items_view.items.map((item) => {
 
                 return <li className="list-group-item" key={item.item_id}>
-                    <span className="badge">1</span>
+                <span className="badge">
+                    <button className="btn btn-default btn-xs">
+                        More
+                    </button>
+                </span>
                     {item.item_name}
                 </li>
             })
+
         }
-
-
     }
 
     render() {
         return (
-            <di>
+            <div>
+                {this.show_bucket_name()}
                 <ul>
                     {this.show_items()}
                 </ul>
-            </di>
+            </div>
         )
     }
 
 }
+
 export default ViewItems

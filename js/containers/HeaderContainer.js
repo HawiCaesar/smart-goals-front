@@ -33,7 +33,6 @@ HeaderContainer.contextTypes = {
 };
 
 function mapStateToProps(state) {
-    //console.log(state)
     return {
         firstName: state.email,
     };

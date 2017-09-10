@@ -25,12 +25,12 @@ class UpdateBucketlist extends React.Component {
         return (
             <div>
                 <h3>Update Bucketlist</h3>
-                {/*<form className="update-bucketlist-form">*/}
+
                     {this.showBucket()}
 
                     <button className="btn btn-primary btn-sm"
                             onClick={()=> this.props.onUpdateBucketlist(this.props.id) }>Update</button>
-                {/*</form>*/}
+                    <div className="spacer"></div>
             </div>
         )
     }

@@ -1,0 +1,77 @@
+import axios from 'axios';
+import * as utils from "../utils/tokenUtilities"
+
+
+class BucketService {
+    constructor() {
+        const token = utils.getAuthToken();
+
+
+        const service = axios.create({
+            baseURL: process.env.API_LOCAL_URL,
+
+        });
+
+        service.interceptors.response.use(this.handleSuccess, this.handleError);
+
+
+        this.service = service;
+    }
+
+    handleSuccess(response) {
+        return response;
+    }
+
+    handleError(error) {
+        console.log(error);
+        return Promise.reject(error);
+    }
+
+    post(path, data, callback) {
+        const token = window.localStorage.getItem('token');
+        return this.service.request({
+            method: 'POST',
+            url: path,
+            responseType: 'json',
+            data,
+            headers: { Authorization: `Bearer ${token}` },
+
+        }).then(response => callback(response.status, response.data));
+    }
+
+    get(path, callback) {
+        const token = window.localStorage.getItem('token');
+
+        return this.service.request({
+            method: 'GET',
+            url: path,
+            responseType: 'json',
+            headers: { Authorization: `Bearer ${token}` },
+        }).then(response => callback(response.status, response.data));
+    }
+
+    put(path, data, callback) {
+        const token = utils.getAuthToken();
+        return this.service.request({
+            method: 'PUT',
+            url: path,
+            responseType: 'json',
+            data,
+            headers: { Authorization: `Bearer ${token}` },
+
+        }).then(response => callback(response.status, response.data));
+    }
+
+    delete_service(path, callback) {
+        // console.log("DELETE COMES UP NEXT")
+        // console.log(path)
+        const token = utils.getAuthToken();
+        return this.service.request({
+            method: 'DELETE',
+            url: path,
+            responseType: 'json',
+            headers: { Authorization: `Bearer ${token}` },
+        }).then(response => callback(response.status, response.data));
+    }
+}
+export default new BucketService();

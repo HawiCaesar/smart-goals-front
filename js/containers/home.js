@@ -8,14 +8,9 @@ class Home extends React.Component {
 
         return(
             <div>
-
                 <HeaderContainer />
 
-                <div className="bucketlists">
-                    <h3>My bucketlists</h3>
-
-                    <BucketlistsContainer />
-                </div>
+                <BucketlistsContainer />
             </div>
         )
     }
