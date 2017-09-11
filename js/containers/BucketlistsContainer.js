@@ -60,9 +60,9 @@ class BucketlistsContainer extends React.Component {
         setTimeout(function () {
 
             this.setState({isOpen_add: false});
-            //this.componentWillMount()
+            this.componentWillMount()
 
-        }.bind(this), 1000);
+        }.bind(this), 2500);
 
     }
 
@@ -74,14 +74,20 @@ class BucketlistsContainer extends React.Component {
             isOpen_update: !this.state.isOpen_update,
             bucket: bucketlist_id
         });
+        this.props.dismiss_modal_message_add()
     }
 
     onUpdateBucketlist(bucket_id) {
 
         this.props.update_bucketlist(bucket_id, this.state.update_bucket_details)
-        this.setState({
-            isOpen_update: !this.state.isOpen_update
-        })
+
+        setTimeout(function () {
+
+            this.setState({
+                isOpen_update: !this.state.isOpen_update
+            })
+
+        }.bind(this), 2500);
 
     }
 
