@@ -28,19 +28,19 @@ class BucketService {
     }
 
     post(path, data, callback) {
-        const token = window.localStorage.getItem('token');
+        const token = utils.getAuthToken();
         return this.service.request({
             method: 'POST',
             url: path,
             responseType: 'json',
-            data,
+            data: {"name": data},
             headers: { Authorization: `Bearer ${token}` },
 
         }).then(response => callback(response.status, response.data));
     }
 
     get(path, callback) {
-        const token = window.localStorage.getItem('token');
+        const token = utils.getAuthToken();
 
         return this.service.request({
             method: 'GET',
@@ -56,15 +56,13 @@ class BucketService {
             method: 'PUT',
             url: path,
             responseType: 'json',
-            data,
+            data: {"name": data},
             headers: { Authorization: `Bearer ${token}` },
 
         }).then(response => callback(response.status, response.data));
     }
 
     delete_service(path, callback) {
-        // console.log("DELETE COMES UP NEXT")
-        // console.log(path)
         const token = utils.getAuthToken();
         return this.service.request({
             method: 'DELETE',
