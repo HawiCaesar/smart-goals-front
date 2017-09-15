@@ -16,7 +16,7 @@ import Bucketlists from "../components/bucketlists/bucketlists"
 class BucketlistsContainer extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             isOpen: false,
             isOpen_update: false,
@@ -99,6 +99,19 @@ class BucketlistsContainer extends React.Component {
 
     }
 
+    viewBucketlistItem(event){
+
+        this.context.router.history.push({
+            pathname: '/bucketlist-items',
+            state: {
+                bucket_id: event.currentTarget.getAttribute('data-id'),
+                item_id: event.currentTarget.getAttribute('data-item-id'),
+                bucket_name: event.currentTarget.getAttribute('data-bucket-name')
+            }
+        });
+
+    }
+
     render() {
         return (
             <Bucketlists bucketlists={this.props.bucketlists_details}
@@ -114,6 +127,7 @@ class BucketlistsContainer extends React.Component {
                          onChangeBucketlistName={this.onChangeBucketlistName.bind(this)}
                          onAddBucketlistName={this.onAddBucketlistName.bind(this)}
                          onCreateBucketlist={this.onCreateBucketlist.bind(this)}
+                         viewBucketlistItem={this.viewBucketlistItem.bind(this)}
 
             />
         );
@@ -140,9 +154,12 @@ function mapDispatchToProps(dispatch) {
 
 }
 
-withRouter(BucketlistsContainer)
+BucketlistsContainer.contextTypes = {
+    router: React.PropTypes.object
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(BucketlistsContainer)
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BucketlistsContainer))
 
 
 
