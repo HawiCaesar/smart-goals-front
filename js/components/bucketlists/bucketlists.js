@@ -33,6 +33,7 @@ class Bucketlists extends React.Component {
 
                                 <a href="#" className="btn btn-danger btn-sm" data-id={bucket.id}
                                    onClick={this.props.deleteBucketlistModal}>Delete Bucketlist</a>
+
                                 <hr/>
 
                                 <p>You have {bucket.items.length} items in this bucketlist</p>
@@ -41,6 +42,8 @@ class Bucketlists extends React.Component {
                                    onClick={this.props.viewItemsModal}>View Items</a>|
 
                                 <a href="#" className="btn btn-primary btn-sm" data-id={bucket.id}>Add Item</a>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -81,6 +84,7 @@ class Bucketlists extends React.Component {
 
                     <UpdateBucketlist id={this.props.bucketlist_id}
                                       buckets={this.props.bucketlists.bucketlists}
+                                      messages={this.props.bucketlists.edit_response}
                                       onChangeBucketlistName = { this.props.onChangeBucketlistName }
                                       onUpdateBucketlist = { this.props.onUpdateBucketlist } />
                 </CommonModal>
