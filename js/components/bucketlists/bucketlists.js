@@ -15,9 +15,9 @@ class Bucketlists extends React.Component {
 
     show_bucketlist(){
 
-        if(this.props.bucketlists.bucketlists.results.length < 1){
-            return <NoBucketlists />
-        }else {
+        if(this.props.bucketlists.bucketlists.results.length < 1) {
+            return <NoBucketlists/>
+        }
 
             return this.props.bucketlists.bucketlists.results.map((bucket) => {
                 return (
@@ -27,21 +27,26 @@ class Bucketlists extends React.Component {
                                 <h3 className="panel-title">{bucket.name}</h3>
                             </div>
                             <div className="panel-body">
+
                                 <a href="#" className="btn btn-primary btn-sm" data-id={bucket.id}
-                                   onClick={this.props.updateBucketlistModal}>Update Bucketlist</a>
+                                   onClick={this.props.updateBucketlistModal}>Update Bucketlist</a>|
 
                                 <a href="#" className="btn btn-danger btn-sm" data-id={bucket.id}
                                    onClick={this.props.deleteBucketlistModal}>Delete Bucketlist</a>
                                 <hr/>
+
                                 <p>You have {bucket.items.length} items in this bucketlist</p>
+
                                 <a href="#" className="btn btn-primary btn-sm" data-id={bucket.id}
-                                   onClick={this.props.viewItemsModal}>View Items</a>
-                            </div>
+                                   onClick={this.props.viewItemsModal}>View Items</a>|
+
+                                <a href="#" className="btn btn-primary btn-sm" data-id={bucket.id}>Add Item</a>
                         </div>
                     </div>
-                )
-            });
-        }
+                </div>
+            )
+        });
+
     };
 
     render(){
@@ -63,7 +68,10 @@ class Bucketlists extends React.Component {
                        style={{width:'300px', height:'300px'}}
                        onClose={this.props.viewItemsModal}>
 
-                    <ViewItems id={this.props.bucketlist_id} buckets={this.props.bucketlists.bucketlists}/>
+                    <ViewItems id={this.props.bucketlist_id}
+                               buckets={this.props.bucketlists.bucketlists}
+                               viewBucketlistItem={this.props.viewBucketlistItem}
+                    />
 
                 </CommonModal>
 
