@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
 class ViewItems extends React.Component {
 
@@ -26,9 +27,11 @@ class ViewItems extends React.Component {
 
                 return <li className="list-group-item" key={item.item_id}>
                 <span className="badge">
-                    <button className="btn btn-default btn-xs">
+                    <a className="btn btn-default btn-xs" data-id={items_view.id} data-item-id={item.item_id}
+                       data-bucket-name={items_view.name}
+                       onClick={this.props.viewBucketlistItem}>
                         More
-                    </button>
+                    </a>
                 </span>
                     {item.item_name}
                 </li>
