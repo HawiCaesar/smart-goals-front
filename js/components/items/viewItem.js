@@ -13,6 +13,22 @@ class ViewItem extends Component{
                     </div>
                     <div className="panel-body">
                         Complete By this by {this.props.item_details.item.complete_by}
+
+                        <div className="row">
+                            <div className="form-group">
+
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <div className="col-lg-10">
+                                <button className="btn btn-success">Done With This</button>
+
+                                <button className="btn btn-primary">Update Item</button>
+
+                                <button className="btn btn-danger">Remove Item</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
