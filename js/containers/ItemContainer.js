@@ -11,13 +11,19 @@ import { get_item } from "../actions/itemActions"
 class ItemContainer extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            isOpen: false,
+            updateItem_isOpen: false,
             item_id: this.props.location.state.item_id,
             bucket_name: this.props.location.state.bucket_name
         }
 
+    }
+
+    updateItemModal(){
+        this.setState({
+        updateItem_isOpen: !this.state.updateItem_isOpen
+        })
     }
 
     componentWillMount() {
@@ -34,6 +40,8 @@ class ItemContainer extends React.Component {
                 <ViewItem item_details={this.props.item_details}
                           item_id={this.state.item_id}
                           bucket_name={this.state.bucket_name}
+                          modal_state={this.state.updateItem_isOpen}
+                          updateItemModal={this.updateItemModal.bind(this)}
                 />
             </div>
 
