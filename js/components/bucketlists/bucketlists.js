@@ -46,7 +46,7 @@ class Bucketlists extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
+
             )
         });
 
