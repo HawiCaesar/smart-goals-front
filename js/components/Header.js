@@ -13,7 +13,7 @@ const Header = (props) => (
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
                     </button>
-                    <a className="navbar-brand" href="#">Smart Goals</a>
+                    <a className="navbar-brand" onClick={props.bucketlistdashboard}>Smart Goals</a>
                 </div>
 
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

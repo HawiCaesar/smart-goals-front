@@ -18,11 +18,16 @@ class HeaderContainer extends React.Component {
         this.context.router.history.push("/intro");
     }
 
+    bucketlistdashboard(){
+        this.context.router.history.push("/home");
+    }
+
     render() {
 
         return (
             <Header
                 logoutUser={this.logoutUser.bind(this)}
+                bucketlistdashboard={this.bucketlistdashboard.bind(this)}
             />
         );
     }
