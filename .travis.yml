@@ -4,5 +4,8 @@ node_js:
   - "7"
   - "8"
 
+directories:
+    - node_modules
+    
 script:
   - "npm test"
