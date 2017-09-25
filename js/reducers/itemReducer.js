@@ -29,6 +29,14 @@ export default function (state = {
                 fetch_error_message: action.payload
             });
         }
+
+        case "UPDATED_RESULTS":{
+
+            return Object.assign({}, state, {
+                edit_item_response: action.payload.message,
+                item: action.payload.item,
+            });
+        }
     }
 
     return state;
