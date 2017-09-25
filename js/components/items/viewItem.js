@@ -30,7 +30,6 @@ class ViewItem extends Component {
 
                         <div className="form-group">
                             <div className="col-lg-10">
-                                <button className="btn btn-success">Done With This</button>
 
                                 <button className="btn btn-primary" onClick={this.props.updateItemModal}>Update Item</button>
 
@@ -44,7 +43,10 @@ class ViewItem extends Component {
                              style={{width:'300px', height:'300px'}}
                              onClose={this.props.updateItemModal}>
 
-                    <UpdateItem />
+                    <UpdateItem item={this.props.item_details}
+                                onChangeItem={this.props.onChangeItemName}
+                                updateItem={this.props.updateItemName}
+                    />
                 </CommonModal>
             </div>
         )
