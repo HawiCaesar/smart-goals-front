@@ -54,9 +54,8 @@ class ItemsService {
             method: 'PUT',
             url: path,
             responseType: 'json',
-            data: {"name": data},
+            data: data,
             headers: { Authorization: `Bearer ${token}` },
-
         }).then(response => callback(response.status, response.data));
     }
 

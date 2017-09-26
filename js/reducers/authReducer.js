@@ -28,7 +28,7 @@ export default function (state = {
             utils.setAuthToken(action.payload['access_token']);
 
             return Object.assign({}, state, {
-                login_error: true,
+                login_error: false,
                 error: false,
                 user_logged_in: true,
                 logging_in: false,
