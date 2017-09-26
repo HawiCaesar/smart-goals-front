@@ -46,10 +46,7 @@ class BucketService {
             url: path,
             responseType: 'json',
             headers: { Authorization: `Bearer ${token}` },
-        })/*.then(response => {
-            console.log('service response: ', response.data)
-            callback(response.status, response.data)
-        }, error => console.log('service error: ', error));*/
+        })
     }
 
     put(path, data, callback) {
