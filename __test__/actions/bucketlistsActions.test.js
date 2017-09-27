@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import sinon from 'sinon';
 import expect from 'expect';
 
-describe('async actions', () => {
+describe('Async Bucketlist Actions', () => {
 
     let sandbox;
     let server;
