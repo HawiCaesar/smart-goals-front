@@ -22,18 +22,11 @@ describe('async actions', () => {
         sandbox.restore();
     });
 
-    it('Fetch Bucketlists successfully (GET)', (done) => {
+    it('should fetch Bucketlists successfully (GET)', (done) => {
 
         let middlewares = [thunk];
         let mockStore = configureMockStore(middlewares);
-        let store = mockStore({
-            login_error: true,
-            error: false,
-            user_logged_in: true,
-            logging_in: false,
-            results: [],
-            token: ""
-        });
+        let store = mockStore();
 
         const expectedActions = [
             {type: "FETCH_BUCKETLISTS"},
@@ -52,18 +45,11 @@ describe('async actions', () => {
             });
     });
 
-    it('Failed Fetching Bucketlists (GET)', (done) => {
+    it('should Fail Fetching Bucketlists (GET)', (done) => {
 
         let middlewares = [thunk];
         let mockStore = configureMockStore(middlewares);
-        let store = mockStore({
-            login_error: true,
-            error: false,
-            user_logged_in: true,
-            logging_in: false,
-            results: [],
-            token: ""
-        });
+        let store = mockStore();
 
         const expectedActions = [
             {type: "FETCH_BUCKETLISTS"},
