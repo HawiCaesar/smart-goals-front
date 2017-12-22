@@ -34,6 +34,11 @@ a{
 	padding-left:35%;
 	margin-top:15%;
 }
+.sign-up{
+	padding-right: 35%;
+	padding-left:35%;
+	margin-top:5%;
+}
 .activity_description{
 	padding-bottom: 20px;
 }
@@ -59,4 +64,7 @@ a{
 }
 .spacer{
 	padding-bottom: 15px;
+}
+.first-row{
+	padding:20px;
 }
