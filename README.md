@@ -1,4 +1,8 @@
-# Smart Goal React + Redux
+# Smart Goals React + Redux
+This app uses [myAPI](https://github.com/HawiCaesar/smart-goals-api)
+
+Example Screen Shot
+![Alt text](./example.png)
 
 ## Getting Started
 
@@ -15,6 +19,10 @@ Run an initial webpack build
 Start the development server (changes will now update live in browser)
 ```
 > npm run start
+```
+To Run tests
+```
+npm test
 ```
 
 To view your project, go to: [http://localhost:3000/](http://localhost:3000/)

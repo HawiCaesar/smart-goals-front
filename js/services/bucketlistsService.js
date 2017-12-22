@@ -1,7 +1,6 @@
 import axios from 'axios';
 import * as utils from "../utils/tokenUtilities"
 
-
 class BucketService {
     constructor() {
         const token = utils.getAuthToken();
@@ -39,7 +38,7 @@ class BucketService {
         }).then(response => callback(response.status, response.data));
     }
 
-    get(path, callback) {
+    get(path) {
         const token = utils.getAuthToken();
 
         return this.service.request({
@@ -47,7 +46,7 @@ class BucketService {
             url: path,
             responseType: 'json',
             headers: { Authorization: `Bearer ${token}` },
-        }).then(response => callback(response.status, response.data));
+        })
     }
 
     put(path, data, callback) {
@@ -72,4 +71,5 @@ class BucketService {
         }).then(response => callback(response.status, response.data));
     }
 }
+
 export default new BucketService();

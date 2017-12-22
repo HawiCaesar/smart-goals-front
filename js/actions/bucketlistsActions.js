@@ -7,11 +7,13 @@ export function get_bucketlists(){
         dispatch({type: "FETCH_BUCKETLISTS"});
         dispatch(showLoading())
 
-        BucketlistService.get(`/v1/api/bucketlists/`, (status, data) =>
-            dispatch({type: "BUCKETLISTS_RESULTS", payload: data })).catch((error) => {
-
-            dispatch({type: "FAILED_FETCHING_BUCKETLISTS", payload: error })
-        });
+        return BucketlistService.get(`/v1/api/bucketlists/`)
+            .then((response) =>{
+                dispatch({type: "BUCKETLISTS_RESULTS", payload: response.data })
+            })
+            .catch((error) => {
+                dispatch({type: "FAILED_FETCHING_BUCKETLISTS", payload: error })
+            });
 
     }
 }

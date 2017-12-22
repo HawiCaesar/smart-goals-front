@@ -28,7 +28,7 @@ class AuthContainer extends React.Component {
 
     // Login
     onClick() {
-
+        // validate email
         if (validateEmail(this.state.email)) {
 
             if (this.state.password.length < 1) {

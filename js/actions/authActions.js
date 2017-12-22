@@ -3,25 +3,40 @@ import * as utils from "../utils/tokenUtilities"
 
 export function loginUser(userData){
 
-    return function(dispatch){
-        dispatch({type: "TRY_LOGIN"});
+    return (dispatch) => {
+        dispatch(LoginRequest());
 
-        axios.post(process.env.API_LOCAL_URL+"/v1/api/auth/login",
+        return axios.post(process.env.API_LOCAL_URL+"/v1/api/auth/login",
             userData)
             .then((response) => {
-                dispatch({type: "LOGIN_RESULTS", payload: response.data})
+                dispatch(LoginSuccess(response))
+            }, (err) => {
+                dispatch(LoginFailed(err))
+            })
+            .catch((err) => dispatch(LoginFailed(err)))
 
-            })
-            .catch((err) => {
-                dispatch({type: "LOGIN_REJECTED", payload: err})
-            })
     }
 }
 
-export function emailChanged(email){
+function LoginRequest(){
+    return {
+        type: "TRY_LOGIN"
+    }
+}
 
-    return function(dispatch) {
-        dispatch({type: "EMAIL_CHANGED", payload: email})
+function LoginSuccess(response){
+    return {
+        type: "LOGIN_RESULTS",
+        payload: response.data
+    }
+}
+
+
+function LoginFailed(error){
+
+    return{
+        type: "LOGIN_REJECTED",
+        payload: error
     }
 }
 
