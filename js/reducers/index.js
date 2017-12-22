@@ -6,7 +6,6 @@ import Bucketlists from "./bucketlistsReducer"
 import Item from "./itemReducer"
 
 import User from "./userReducer"
-import { loadingBarReducer } from 'react-redux-loading-bar'
 
 const allReducers = combineReducers({
 
